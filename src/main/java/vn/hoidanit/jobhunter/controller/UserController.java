@@ -27,11 +27,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    // @PostMapping("/user")
-    // public ResponseEntity<User> createNewUser(@RequestBody User user) {
-    // User createdUser = userService.handleCreateUser(user);
-    // return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
-    // }
+    @PostMapping("/user")
+    public ResponseEntity<User> createNewUser(@RequestBody User user) {
+        User createdUser = userService.handleCreateUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
 
     @DeleteMapping("/user/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") long id) throws IdInvalidExeption {

@@ -12,23 +12,17 @@ import vn.hoidanit.jobhunter.repository.UserRepository;
 @Service
 public class UserService {
     private UserRepository userRepository;
-    // private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
-    // public UserService(UserRepository userRepository, PasswordEncoder
-    // passwordEncoder) {
-    // this.userRepository = userRepository;
-    // this.passwordEncoder = passwordEncoder;
-    // }
-
-    // public User handleCreateUser(User newUser) {
-
-    // String hashPassword = passwordEncoder.encode(newUser.getPassword());
-    // newUser.setPassword(hashPassword);
-    // return userRepository.save(newUser);
-    // }
-
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public User handleCreateUser(User newUser) {
+        String hashPassword = passwordEncoder.encode(newUser.getPassword());
+        newUser.setPassword(hashPassword);
+        return userRepository.save(newUser);
     }
 
     public void handleDeleteUser(long id) {

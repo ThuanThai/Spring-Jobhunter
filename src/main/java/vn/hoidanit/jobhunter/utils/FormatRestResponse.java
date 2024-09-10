@@ -23,6 +23,10 @@ public class FormatRestResponse implements ResponseBodyAdvice {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
             Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 
+        if (body instanceof String) {
+            return body;
+        }
+
         HttpServletResponse httpServletResponse = ((ServletServerHttpResponse) response).getServletResponse();
 
         RestResponse<Object> rs = new RestResponse<Object>();
