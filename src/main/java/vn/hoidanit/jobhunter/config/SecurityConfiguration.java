@@ -77,6 +77,7 @@ public class SecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http, CustomAuthenticationEntryPoint authEP) throws Exception {
         http
                 .csrf(c -> c.disable())
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
                         authz -> authz
                                 .requestMatchers("/", "/login").permitAll()
