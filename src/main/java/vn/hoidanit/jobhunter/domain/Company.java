@@ -13,6 +13,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import vn.hoidanit.jobhunter.utils.SecurityUtil;
 
 @Getter
 @Setter
@@ -43,7 +44,7 @@ public class Company {
 
     @PrePersist
     public void BeforeCreateCompany() {
-        this.updatedBy = "jasper";
+        this.updatedBy = SecurityUtil.getCurrentUserLogin().isPresent() ? SecurityUtil.getCurrentUserLogin().get() : "";
         this.createdAt = Instant.now();
     }
 }
