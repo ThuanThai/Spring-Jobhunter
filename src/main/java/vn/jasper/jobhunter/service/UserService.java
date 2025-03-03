@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import vn.jasper.jobhunter.domain.User;
 import vn.jasper.jobhunter.domain.dto.Meta;
+import vn.jasper.jobhunter.domain.dto.ResCreateUserDTO;
 import vn.jasper.jobhunter.domain.dto.ResultPaginationDTO;
 import vn.jasper.jobhunter.repository.UserRepository;
 
@@ -66,7 +67,23 @@ public class UserService {
         return null;
     }
 
-    public Optional<User> handleFetchUserbyUsername(String username) {
+    public Optional<User> handleFetchUserByUsername(String username) {
         return this.userRepository.findByEmail(username);
+    }
+
+    public Boolean isEmailExisted(String email) {
+        return this.userRepository.existsByEmail(email);
+    }
+
+    public ResCreateUserDTO convertToResCreateUserDTO(User user) {
+        ResCreateUserDTO res = new ResCreateUserDTO();
+        res.setId(user.getId());
+        res.setEmail(user.getEmail());
+        res.setName(user.getName());
+        res.setAge(user.getAge());
+        res.setCreatedAt(user.getCreatedAt());
+        res.setGender(user.getGender());
+        res.setAddress(user.getAddress());
+        return res;
     }
 }

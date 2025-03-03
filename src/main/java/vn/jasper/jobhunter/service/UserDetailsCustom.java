@@ -21,7 +21,7 @@ public class UserDetailsCustom implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<vn.jasper.jobhunter.domain.User> userOptional = this.userService.handleFetchUserbyUsername(username);
+        Optional<vn.jasper.jobhunter.domain.User> userOptional = this.userService.handleFetchUserByUsername(username);
 
         if (userOptional.isPresent()) {
             vn.jasper.jobhunter.domain.User user = userOptional.get();
