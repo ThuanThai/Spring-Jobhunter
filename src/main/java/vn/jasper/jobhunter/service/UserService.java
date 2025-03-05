@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 import vn.jasper.jobhunter.domain.User;
 import vn.jasper.jobhunter.domain.dto.Meta;
 import vn.jasper.jobhunter.domain.dto.ResCreateUserDTO;
+import vn.jasper.jobhunter.domain.dto.ResUpdateUserDTO;
+import vn.jasper.jobhunter.domain.dto.ResUserDTO;
 import vn.jasper.jobhunter.domain.dto.ResultPaginationDTO;
 import vn.jasper.jobhunter.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -47,9 +51,13 @@ public class UserService {
         meta.setPages(userPage.getTotalPages());
         meta.setTotal(userPage.getTotalElements());
 
-        rs.setMeta(meta);
-        rs.setResult(userPage.getContent());
+        // remove sensitive data
+        List<ResUserDTO> listUser = userPage.getContent()
+                .stream().map(this::convertToResUserDTO)
+                .collect(Collectors.toList());
 
+        rs.setMeta(meta);
+        rs.setResult(listUser);
         return rs;
     }
 
@@ -58,9 +66,10 @@ public class UserService {
         if (updatedUserOptional.isPresent()) {
             User updatedUser = updatedUserOptional.get();
             // update
+            updatedUser.setAddress(user.getAddress());
+            updatedUser.setGender(user.getGender());
+            updatedUser.setAge(user.getAge());
             updatedUser.setName(user.getName());
-            updatedUser.setEmail(user.getEmail());
-            updatedUser.setPassword(user.getPassword());
 
             return userRepository.save(updatedUser);
         }
@@ -81,6 +90,30 @@ public class UserService {
         res.setEmail(user.getEmail());
         res.setName(user.getName());
         res.setAge(user.getAge());
+        res.setCreatedAt(user.getCreatedAt());
+        res.setGender(user.getGender());
+        res.setAddress(user.getAddress());
+        return res;
+    }
+
+    public ResUpdateUserDTO convertToResUpdateUserDTO(User user) {
+        ResUpdateUserDTO res = new ResUpdateUserDTO();
+        res.setId(user.getId());
+        res.setName(user.getName());
+        res.setAge(user.getAge());
+        res.setUpdatedAt(user.getUpdatedAt());
+        res.setGender(user.getGender());
+        res.setAddress(user.getAddress());
+        return res;
+    }
+
+    public ResUserDTO convertToResUserDTO(User user) {
+        ResUserDTO res = new ResUserDTO();
+        res.setId(user.getId());
+        res.setEmail(user.getEmail());
+        res.setName(user.getName());
+        res.setAge(user.getAge());
+        res.setUpdatedAt(user.getUpdatedAt());
         res.setCreatedAt(user.getCreatedAt());
         res.setGender(user.getGender());
         res.setAddress(user.getAddress());

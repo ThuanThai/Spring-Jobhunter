@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import vn.jasper.jobhunter.annotation.ApiMessage;
 import vn.jasper.jobhunter.domain.User;
 import vn.jasper.jobhunter.domain.dto.ResCreateUserDTO;
+import vn.jasper.jobhunter.domain.dto.ResUpdateUserDTO;
+import vn.jasper.jobhunter.domain.dto.ResUserDTO;
 import vn.jasper.jobhunter.domain.dto.ResultPaginationDTO;
 import vn.jasper.jobhunter.service.UserService;
 import vn.jasper.jobhunter.utils.error.IdInvalidException;
@@ -41,17 +43,22 @@ public class UserController {
 
     @DeleteMapping("/user/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") long id) throws IdInvalidException {
-        if (id > 1500)
-            throw new IdInvalidException("id is greater than 1500");
-        userService.handleDeleteUser(id);
+        Optional<User> currentUser = this.userService.handleFetchUserById(id);
+        if (currentUser.isPresent()) {
+            throw new IdInvalidException("User with id" + id + "is not existed");
+        }
+        this.userService.handleDeleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
     @ApiMessage("Fetch user by ID")
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> fetchUserById(@PathVariable("id") long id) {
+    public ResponseEntity<ResUserDTO> fetchUserById(@PathVariable("id") long id) throws IdInvalidException {
         Optional<User> optionalUser = userService.handleFetchUserById(id);
-        return optionalUser.map(user -> ResponseEntity.ok().body(user)).orElse(null);
+       if (optionalUser.isPresent()) {
+           throw new IdInvalidException("User with id" + id + "is not existed");
+       }
+       return ResponseEntity.status(HttpStatus.OK).body(userService.convertToResUserDTO(optionalUser.get()));
     }
 
     @GetMapping("/user")
@@ -61,8 +68,11 @@ public class UserController {
     }
 
     @PutMapping("/user")
-    public ResponseEntity<User> putMethodName(@RequestBody User entity) {
-        return ResponseEntity.ok().body(userService.handleUpdateUser(entity));
+    public ResponseEntity<ResUpdateUserDTO> updateUser(@RequestBody User user) throws IdInvalidException {
+        User updatedUser = userService.handleUpdateUser(user);
+        if (updatedUser == null) {
+            throw new IdInvalidException("User with id" + user.getId() + "is not existed");
+        }
+        return ResponseEntity.ok().body(userService.convertToResUpdateUserDTO(updatedUser));
     }
-
 }
