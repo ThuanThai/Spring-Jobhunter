@@ -35,7 +35,7 @@ public class UserController {
        boolean emailExisted = userService.isEmailExisted(user.getEmail());
         if (emailExisted) {
             throw new IdInvalidException(
-                    "Email " + user.getEmail() + "is existed, please user another email");
+                         "Email " + user.getEmail() + "is existed, please user another email");
         }
         User createdUser = userService.handleCreateUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.convertToResCreateUserDTO(createdUser));
