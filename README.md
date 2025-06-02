@@ -1,16 +1,75 @@
-# Java Spring Starter template
-Template này được sử dụng cho series Java Spring Restful (dự án jobHunter) của tác giả Hỏi Dân IT (Eric)
 
-## Về tác giả
-Mọi thông tin về Tác giả Hỏi Dân IT, các bạn có thể tìm kiếm tại đây:
+# Spring-Jobhunter
 
-Website chính thức: https://hoidanit.vn/
+> **A next-generation job search platform built with Spring Boot, designed to surprise and delight recruiters and job seekers alike.**
 
-Youtube “Hỏi Dân IT” : https://www.youtube.com/@hoidanit
+---
 
-Tiktok “Hỏi Dân IT” :  https://www.tiktok.com/@hoidanit
+## 🚀 Why Spring-Jobhunter?
 
-Fanpage “Hỏi Dân IT” : https://www.facebook.com/askITwithERIC/
+- **Smart Matching:** Uses advanced algorithms to match candidates and jobs beyond keywords—think skills, culture fit, and growth potential.
+- **Lightning Fast:** Built on Spring Boot for robust, scalable, and high-performance backend operations.
+- **Recruiter Insights:** Real-time analytics dashboard for recruiters to track candidate engagement and hiring funnel efficiency.
+- **Candidate Experience:** Intuitive UI, instant feedback, and personalized job recommendations.
 
-Udemy Hỏi Dân IT: https://www.udemy.com/user/eric-7039/
+---
 
+## 🛠️ Tech Stack
+
+- **Backend:** Spring Boot, Spring Data JPA, Hibernate
+- **Database:** PostgreSQL
+- **Frontend:** React (or your preferred JS framework)
+- **Security:** Spring Security, JWT Authentication
+- **DevOps:** Docker, GitHub Actions (CI/CD)
+- **Testing:** JUnit, Mockito
+
+---
+
+## ✨ Features That Surprise
+
+- **AI-Powered Resume Parsing:** Instantly extracts skills and experience from uploaded resumes.
+- **One-Click Apply:** Candidates can apply to multiple jobs with a single click.
+- **Automated Interview Scheduling:** Integrates with Google Calendar and Outlook.
+- **Gamified Referrals:** Employees and users earn points for successful referrals.
+
+---
+
+## 🏆 For Recruiters
+
+- **Talent Pool Search:** Filter candidates by skills, experience, and even soft skills.
+- **Bulk Messaging:** Reach out to multiple candidates with personalized templates.
+- **Customizable Pipelines:** Tailor your hiring workflow to your company's needs.
+
+---
+
+## 🧑‍💻 Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/Spring-Jobhunter.git
+
+# Backend setup
+cd Spring-Jobhunter/backend
+./mvnw spring-boot:run
+
+# Frontend setup
+cd ../frontend
+npm install
+npm start
+```
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please open issues or submit pull requests.
+
+---
+
+## 📬 Contact
+
+- **Email:** thaithuan.work@gmail.com
+- **LinkedIn:** [Thaithuan](https://www.linkedin.com/in/thuan-thai-633bb8325)
+
+---
+
+> _Spring-Jobhunter: Because finding the right job (or candidate) should be smart, fast, and fun!_
